@@ -1,0 +1,29 @@
+{
+  "name": "aria-relay-panel",
+  "version": "1.4.0",
+  "private": true,
+  "description": "V3 Relay server: cover-site proxy relay (v1 WS / v2 devsync) + hidden user panel",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "pg": "^8.23.1",
+    "ws": "^8.22.0"
+  },
+  "envDocs": {
+    "SITE_KEY": "master user secret (32 hex) — REQUIRED in production, no safe default",
+    "ADMIN_PASS": "panel password at /<ADMIN_PATH> — REQUIRED, panel stays locked when empty",
+    "ADMIN_PATH": "hidden panel path segment (default: stock-manage)",
+    "CONFIG_KEY": "48-hex config-encryption key; MUST equal the key embedded in the Android app for mo:// codes to work",
+    "DATABASE_URL": "Postgres connection string (empty = NODB in-memory mode)",
+    "WORKER_URL": "public URL shown in generated user commands/codes",
+    "PORT": "listen port (default 3000)",
+    "V2_DISABLE": "set 1 to disable the v2 devsync protocol",
+    "V2_DEBUG": "set 1 to enable per-chunk verbose logs",
+    "V2_TEST_USER": "secret of an in-memory test user for v2"
+  }
+}
