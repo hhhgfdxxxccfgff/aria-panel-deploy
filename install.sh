@@ -6,6 +6,19 @@
 set -euo pipefail
 umask 027
 
+if [ "$(id -u)" -ne 0 ]; then
+  echo "[*] not root -> re-running with sudo"
+  if ! command -v sudo >/dev/null 2>&1; then
+    echo "!! root required (or install sudo first)" >&2
+    exit 1
+  fi
+  if [ "${0#-}" != "$0" ] || [ ! -f "$0" ]; then
+    echo "!! save the script first: curl ... -o install.sh && sudo bash install.sh" >&2
+    exit 1
+  fi
+  exec sudo -E bash "$0"
+fi
+
 DEST="/opt/aria-panel"
 ENVF="/etc/aria-panel.env"
 SVC="aria-panel"
